@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/earthquake-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="地震預防與應變指南應用程式 - 提供全面的地震防災教育與應變指導"
+    />
+    <meta name="keywords" content="地震防災, 地震應變, 防災包, 避難指引, 地震知識, 緊急應變" />
+    <meta name="author" content="地震預防應用程式" />
+
+    <!-- PWA 相關 -->
+    <meta name="theme-color" content="#1E88E5" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- 社群媒體標籤 -->
+    <meta property="og:title" content="地震預防與應變指南" />
+    <meta property="og:description" content="全面的地震防災教育與應變指導應用程式" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+
+    <title>地震避難宣導網站</title>
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- 跳過導航連結 (無障礙) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded"
+    >
+      跳到主要內容
+    </a>
+
+    <!-- 頁面載入指示器 -->
+    <div
+      id="loading-indicator"
+      class="fixed inset-0 bg-blue-50 z-50 flex items-center justify-center"
+    >
+      <div class="text-center">
+        <div class="loading-spinner mx-auto mb-4"></div>
+        <div class="text-gray-600 animate-loading-dots">
+          載入中<span>.</span><span>.</span><span>.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主應用程式容器 -->
+    <div id="app" class="hidden min-h-screen">
+      <!-- 導航列 -->
+      <nav class="bg-blue-600 text-white shadow-lg" role="navigation" aria-label="主要導航">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+              <svg class="h-8 w-8 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2l10 18H2L12 2zm0 3.8L5.5 18h13L12 5.8z" />
+              </svg>
+              <h1 class="text-xl font-bold">地震避難宣導</h1>
+            </div>
+
+            <!-- 行動版選單按鈕 -->
+            <button
+              id="mobile-menu-button"
+              class="md:hidden focus:outline-none focus:ring-2 focus:ring-white rounded"
+              aria-label="開啟選單"
+              aria-expanded="false"
+            >
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- 桌面版導航 -->
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <a href="#" class="nav-link active" data-section="home" tabindex="0">首頁</a>
+                <a href="#" class="nav-link" data-section="three-steps" tabindex="0">三步驟教學</a>
+                <a href="#" class="nav-link" data-section="situations" tabindex="0">場所避難指導</a>
+                <a href="#" class="nav-link" data-section="mistakes" tabindex="0">錯誤行為警示</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 行動版選單 -->
+          <div id="mobile-menu" class="md:hidden hidden pb-4">
+            <div class="space-y-2">
+              <a href="#" class="nav-link-mobile active" data-section="home">首頁</a>
+              <a href="#" class="nav-link-mobile" data-section="three-steps">三步驟教學</a>
+              <a href="#" class="nav-link-mobile" data-section="situations">場所避難指導</a>
+              <a href="#" class="nav-link-mobile" data-section="mistakes">錯誤行為警示</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- 主要內容區域 -->
+      <main id="main-content" class="container mx-auto px-4 py-8" role="main">
+        <!-- 首頁內容 -->
+        <section id="home-section" class="section active">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              地震避難宣導網站
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+              透過簡潔明瞭的圖示與文字，教育使用者在地震發生時如何正確避難，提升民眾的防災意識與自我保護能力
+            </p>
+          </div>
+
+          <!-- 功能卡片網格 -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            <!-- 三步驟教學卡片 -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 text-white">
+                <div class="flex items-center justify-between">
+                  <div class="w-14 h-14 bg-red-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-red-300 border-opacity-40">
+                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/>
+                    </svg>
+                  </div>
+                  <div class="bg-red-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-red-300 border-opacity-40">
+                    基礎教學
+                  </div>
+                </div>
+                <h3 class="text-2xl font-bold mt-4 mb-2">趴下、掩護、穩住</h3>
+                <p class="text-red-100 text-sm">學習地震避難三步驟正確做法</p>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                    互動式教學動畫
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                    步驟練習模擬
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                    記憶口訣學習
+                  </div>
+                </div>
+                <button
+                  class="w-full bg-red-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200"
+                  data-section="three-steps"
+                >
+                  開始學習
+                </button>
+              </div>
+            </div>
+
+            <!-- 場所避難指導卡片 -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white">
+                <div class="flex items-center justify-between">
+                  <div class="w-14 h-14 bg-blue-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-blue-300 border-opacity-40">
+                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                  </div>
+                  <div class="bg-blue-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-blue-300 border-opacity-40">
+                    情境指導
+                  </div>
+                </div>
+                <h3 class="text-2xl font-bold mt-4 mb-2">場所避難指導</h3>
+                <p class="text-blue-100 text-sm">不同場所的專業避難方法</p>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                    室內外避難指導
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                    交通工具內應變
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                    公共場所指引
+                  </div>
+                </div>
+                <button
+                  class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+                  data-section="situations"
+                >
+                  學習避難
+                </button>
+              </div>
+            </div>
+
+            <!-- 錯誤行為警示卡片 -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div class="bg-gradient-to-br from-amber-500 to-orange-500 p-6 text-white">
+                <div class="flex items-center justify-between">
+                  <div class="w-14 h-14 bg-orange-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-orange-300 border-opacity-40">
+                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                  </div>
+                  <div class="bg-orange-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-orange-300 border-opacity-40">
+                    安全警示
+                  </div>
+                </div>
+                <h3 class="text-2xl font-bold mt-4 mb-2">錯誤行為警示</h3>
+                <p class="text-orange-100 text-sm">認識危險的錯誤避難行為</p>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-orange-400 rounded-full mr-3"></span>
+                    常見錯誤示範
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <span class="w-2 h-2 bg-orange-400 rounded-full mr-3"></span>
+                    危險行為分析
+                  </div>
+                </div>
+                <button
+                  class="w-full bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-orange-700 transition-colors duration-200"
+                  data-section="mistakes"
+                >
+                  了解錯誤
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 緊急聯絡區 -->
+          <div class="emergency-contact-section p-8">
+            <!-- 標題區域 -->
+            <div class="text-center mb-8 relative z-10">
+              <div class="flex items-center justify-center mb-3">
+                <div
+                  class="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mr-3 shadow-lg"
+                >
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                    />
+                  </svg>
+                </div>
+                <h3
+                  class="text-2xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent"
+                >
+                  緊急聯絡電話
+                </h3>
+              </div>
+              <p class="text-orange-700 text-sm font-medium">
+                地震發生時的重要求救管道，請牢記以下號碼
+              </p>
+            </div>
+
+            <!-- 電話卡片區域 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- 119 消防局 -->
+              <a href="tel:119" class="emergency-contact-card text-center">
+                <div class="emergency-contact-icon">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.76-6.59-6.59l2.2-2.2c.27-.27.35-.67.24-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                  </svg>
+                </div>
+                <div class="emergency-phone-number">119</div>
+                <div class="text-gray-700 font-semibold mb-1">消防局</div>
+                <div class="text-sm text-gray-500">火災救護 • 緊急救援</div>
+              </a>
+
+              <!-- 110 警察局 -->
+              <a href="tel:110" class="emergency-contact-card text-center">
+                <div class="emergency-contact-icon">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                  </svg>
+                </div>
+                <div class="emergency-phone-number">110</div>
+                <div class="text-gray-700 font-semibold mb-1">警察局</div>
+                <div class="text-sm text-gray-500">治安維護 • 緊急報案</div>
+              </a>
+
+              <!-- 1922 疾管署 -->
+              <a href="tel:1922" class="emergency-contact-card text-center">
+                <div class="emergency-contact-icon">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 14.46l-2.12-2.12c-.18-.18-.44-.29-.71-.29s-.52.11-.71.29l-1.41 1.41c-.18.18-.29.44-.29.71s.11.52.29.71L16.17 17l-1.41 1.41c-.18.18-.29.44-.29.71s.11.52.29.71l2.12 2.12c.39.39 1.02.39 1.41 0l2.12-2.12c.39-.39.39-1.02 0-1.41L19 14.46z"/>
+                  </svg>
+                </div>
+                <div class="emergency-phone-number">1922</div>
+                <div class="text-gray-700 font-semibold mb-1">疾管署</div>
+                <div class="text-sm text-gray-500">疫情諮詢 • 健康服務</div>
+              </a>
+            </div>
+
+            <!-- 底部提醒 -->
+            <div class="mt-6 text-center relative z-10">
+              <p class="text-orange-600 text-sm font-medium flex items-center justify-center">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                </svg>
+                緊急時刻請保持冷靜，清楚說明所在位置
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 其他內容區域將由 TypeScript 動態載入 -->
+        <section id="three-steps-section" class="section hidden">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">地震避難三步驟</h2>
+            <p class="text-gray-600">趺下、掩護、穩住 - 正確的地震應變動作</p>
+          </div>
+          <div id="three-steps-content">
+            <!-- 內容將由 TypeScript 載入 -->
+          </div>
+        </section>
+
+        <section id="situations-section" class="section hidden">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">情境式避難指導</h2>
+            <p class="text-gray-600">在不同場所的正確避難方法</p>
+          </div>
+          <div id="situations-content">
+            <!-- 內容將由 TypeScript 載入 -->
+          </div>
+        </section>
+
+        <section id="mistakes-section" class="section hidden">
+          <div id="mistakes-content">
+            <!-- 內容將由 TypeScript 載入 -->
+          </div>
+        </section>
+      </main>
+
+      <!-- 頁尾 -->
+      <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+          <p class="mb-4">© 2024 地震預防與應變指南應用程式</p>
+          <p class="text-gray-400 text-sm">本應用程式旨在提供地震防災教育，請搭配官方資訊使用</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- TypeScript 主程式 -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
