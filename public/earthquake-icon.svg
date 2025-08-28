@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- 背景圓形 -->
+  <circle cx="12" cy="12" r="11" fill="#2563eb" stroke="#1d4ed8" stroke-width="1"/>
+  
+  <!-- 保護盾牌外框 -->
+  <path d="M12 3l-7 2.5v5.5c0 4.5 3 8.5 7 9.5 4-1 7-5 7-9.5V5.5L12 3z" 
+        stroke="white" 
+        stroke-width="1.2" 
+        fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- 房屋圖標 -->
+  <path d="M12 7l-3.5 2.5v5h1.5v-2.5h4v2.5h1.5v-5L12 7z" 
+        fill="white"/>
+  
+  <!-- 安全標記 -->
+  <path d="M14.5 9.5l-1.5 1.5-0.8-0.8" 
+        stroke="white" 
+        stroke-width="1.5" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

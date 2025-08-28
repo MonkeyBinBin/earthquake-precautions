@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <!-- 背景圓形 -->
+  <circle cx="8" cy="8" r="7" fill="#2563eb"/>
+  
+  <!-- 簡化的盾牌 -->
+  <path d="M8 2l-5 2v4c0 3 2 6 5 7 3-1 5-4 5-7V4l-5-2z" 
+        stroke="white" 
+        stroke-width="0.8" 
+        fill="rgba(255,255,255,0.15)"/>
+  
+  <!-- 簡化的房屋 -->
+  <path d="M8 5l-2.5 1.8v3.2h1v-1.5h3v1.5h1V6.8L8 5z" 
+        fill="white"/>
+  
+  <!-- 小勾選標記 -->
+  <path d="M10 7l-1 1-0.5-0.5" 
+        stroke="white" 
+        stroke-width="1" 
+        fill="none" 
+        stroke-linecap="round"/>
+</svg>

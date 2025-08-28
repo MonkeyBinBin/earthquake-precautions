@@ -2,7 +2,12 @@
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
+    <!-- Favicon 設定 -->
     <link rel="icon" type="image/svg+xml" href="/earthquake-icon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+    <link rel="apple-touch-icon" href="/earthquake-icon.svg" />
+    <link rel="shortcut icon" href="/earthquake-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
@@ -22,6 +27,86 @@
     <meta property="og:image" content="/og-image.png" />
 
     <title>地震避難宣導網站</title>
+
+    <!-- 關鍵樣式內聯 - 防止載入時圖標過大 -->
+    <style>
+      /* 防止載入閃爍 - 設定基礎圖標尺寸 */
+      svg {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .w-4 {
+        width: 1rem;
+        height: 1rem;
+      }
+      .w-5 {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+      .w-6 {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .w-8 {
+        width: 2rem;
+        height: 2rem;
+      }
+      .w-10 {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      .w-12 {
+        width: 3rem;
+        height: 3rem;
+      }
+      .w-14 {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
+
+      .h-4 {
+        height: 1rem;
+      }
+      .h-5 {
+        height: 1.25rem;
+      }
+      .h-6 {
+        height: 1.5rem;
+      }
+      .h-8 {
+        height: 2rem;
+      }
+      .h-10 {
+        height: 2.5rem;
+      }
+      .h-12 {
+        height: 3rem;
+      }
+      .h-14 {
+        height: 3.5rem;
+      }
+
+      /* 載入指示器基本樣式 */
+      #loading-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(239 246 255);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #app.hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 text-gray-900 font-sans">
     <!-- 跳過導航連結 (無障礙) -->
@@ -52,8 +137,32 @@
         <div class="container mx-auto px-4">
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
-              <svg class="h-8 w-8 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2l10 18H2L12 2zm0 3.8L5.5 18h13L12 5.8z" />
+              <svg
+                class="h-8 w-8 mr-3"
+                width="32"
+                height="32"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <!-- 保護盾牌外框 -->
+                <path
+                  d="M12 2l-8 3v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  fill="none"
+                />
+                <!-- 房屋圖標 -->
+                <path d="M12 6l-4 3v6h2v-3h4v3h2v-6l-4-3z" />
+                <!-- 安全標記 -->
+                <path
+                  d="M15 9l-2 2-1-1"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
               <h1 class="text-xl font-bold">地震避難宣導</h1>
             </div>
@@ -65,7 +174,14 @@
               aria-label="開啟選單"
               aria-expanded="false"
             >
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                class="h-6 w-6"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -103,9 +219,7 @@
         <!-- 首頁內容 -->
         <section id="home-section" class="section active">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              地震避難宣導網站
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">地震避難宣導網站</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
               透過簡潔明瞭的圖示與文字，教育使用者在地震發生時如何正確避難，提升民眾的防災意識與自我保護能力
             </p>
@@ -114,15 +228,27 @@
           <!-- 功能卡片網格 -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             <!-- 三步驟教學卡片 -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div
+              class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300"
+            >
               <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 text-white">
                 <div class="flex items-center justify-between">
-                  <div class="w-14 h-14 bg-red-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-red-300 border-opacity-40">
-                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/>
+                  <div
+                    class="w-14 h-14 bg-red-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-red-300 border-opacity-40"
+                  >
+                    <svg
+                      class="w-8 h-8 text-white drop-shadow-sm"
+                      width="32"
+                      height="32"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
                     </svg>
                   </div>
-                  <div class="bg-red-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-red-300 border-opacity-40">
+                  <div
+                    class="bg-red-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-red-300 border-opacity-40"
+                  >
                     基礎教學
                   </div>
                 </div>
@@ -154,15 +280,27 @@
             </div>
 
             <!-- 場所避難指導卡片 -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div
+              class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300"
+            >
               <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white">
                 <div class="flex items-center justify-between">
-                  <div class="w-14 h-14 bg-blue-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-blue-300 border-opacity-40">
-                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                  <div
+                    class="w-14 h-14 bg-blue-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-blue-300 border-opacity-40"
+                  >
+                    <svg
+                      class="w-8 h-8 text-white drop-shadow-sm"
+                      width="32"
+                      height="32"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
                   </div>
-                  <div class="bg-blue-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-blue-300 border-opacity-40">
+                  <div
+                    class="bg-blue-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-blue-300 border-opacity-40"
+                  >
                     情境指導
                   </div>
                 </div>
@@ -194,15 +332,27 @@
             </div>
 
             <!-- 錯誤行為警示卡片 -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div
+              class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300"
+            >
               <div class="bg-gradient-to-br from-amber-500 to-orange-500 p-6 text-white">
                 <div class="flex items-center justify-between">
-                  <div class="w-14 h-14 bg-orange-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-orange-300 border-opacity-40">
-                    <svg class="w-8 h-8 text-white drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  <div
+                    class="w-14 h-14 bg-orange-700 bg-opacity-30 rounded-xl flex items-center justify-center border border-orange-300 border-opacity-40"
+                  >
+                    <svg
+                      class="w-8 h-8 text-white drop-shadow-sm"
+                      width="32"
+                      height="32"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
                     </svg>
                   </div>
-                  <div class="bg-orange-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-orange-300 border-opacity-40">
+                  <div
+                    class="bg-orange-700 bg-opacity-30 rounded-full px-3 py-1 text-sm font-bold text-white border border-orange-300 border-opacity-40"
+                  >
                     安全警示
                   </div>
                 </div>
@@ -238,7 +388,13 @@
                 <div
                   class="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mr-3 shadow-lg"
                 >
-                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    class="w-6 h-6 text-white"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
                     />
@@ -260,8 +416,16 @@
               <!-- 119 消防局 -->
               <a href="tel:119" class="emergency-contact-card text-center">
                 <div class="emergency-contact-icon">
-                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.76-6.59-6.59l2.2-2.2c.27-.27.35-.67.24-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                  <svg
+                    class="w-6 h-6 text-white"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.76-6.59-6.59l2.2-2.2c.27-.27.35-.67.24-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"
+                    />
                   </svg>
                 </div>
                 <div class="emergency-phone-number">119</div>
@@ -272,7 +436,13 @@
               <!-- 110 警察局 -->
               <a href="tel:110" class="emergency-contact-card text-center">
                 <div class="emergency-contact-icon">
-                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    class="w-6 h-6 text-white"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
                   </svg>
                 </div>
@@ -284,8 +454,9 @@
               <!-- 1922 疾管署 -->
               <a href="tel:1922" class="emergency-contact-card text-center">
                 <div class="emergency-contact-icon">
-                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 14.46l-2.12-2.12c-.18-.18-.44-.29-.71-.29s-.52.11-.71.29l-1.41 1.41c-.18.18-.29.44-.29.71s.11.52.29.71L16.17 17l-1.41 1.41c-.18.18-.29.44-.29.71s.11.52.29.71l2.12 2.12c.39.39 1.02.39 1.41 0l2.12-2.12c.39-.39.39-1.02 0-1.41L19 14.46z"/>
+                  <svg class="w-6 h-6 text-white" width="24" height="24" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" fill="currentColor" />
+                    <path d="M17 11h-4V7h-2v4H7v2h4v4h2v-4h4v-2z" fill="white" />
                   </svg>
                 </div>
                 <div class="emergency-phone-number">1922</div>
@@ -297,7 +468,13 @@
             <!-- 底部提醒 -->
             <div class="mt-6 text-center relative z-10">
               <p class="text-orange-600 text-sm font-medium flex items-center justify-center">
-                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  class="w-4 h-4 mr-2"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
                 </svg>
                 緊急時刻請保持冷靜，清楚說明所在位置
@@ -306,33 +483,1121 @@
           </div>
         </section>
 
-        <!-- 其他內容區域將由 TypeScript 動態載入 -->
-        <section id="three-steps-section" class="section hidden">
-          <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">地震避難三步驟</h2>
-            <p class="text-gray-600">趺下、掩護、穩住 - 正確的地震應變動作</p>
+        <!-- 三步驟教學區域 -->
+        <section id="three-steps-section" class="section py-16">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">地震避難三步驟</h2>
+            <p class="text-xl text-gray-600 mb-6">趴下、掩護、穩住 - 正確的地震應變動作</p>
+            <div
+              class="inline-flex items-center bg-red-50 border border-red-200 rounded-full px-6 py-2"
+            >
+              <svg
+                class="w-5 h-5 text-red-500 mr-2"
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+              </svg>
+              <span class="text-red-700 font-semibold">記住口訣：Drop, Cover, Hold On</span>
+            </div>
           </div>
-          <div id="three-steps-content">
-            <!-- 內容將由 TypeScript 載入 -->
+
+          <!-- 三步驟卡片 -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <!-- 第一步：趴下 (Drop) -->
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+            >
+              <!-- 圖片區域 -->
+              <div
+                class="three-steps-image-container relative bg-red-50 p-4 flex items-center justify-center h-48"
+              >
+                <img
+                  src="/action-drop.png"
+                  alt="趴下動作示意圖 - 立即蹲下保護身體"
+                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute top-3 left-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
+                >
+                  1
+                </div>
+                <div
+                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
+                >
+                  <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- 內容區域 -->
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">趴下 (Drop)</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                  感受到搖晃的瞬間，立即蹲下並雙手雙膝著地，保護身體重心穩定，避免跌倒受傷
+                </p>
+                <div class="flex items-center text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    />
+                  </svg>
+                  關鍵：反應要快，立即行動
+                </div>
+              </div>
+            </div>
+
+            <!-- 第二步：掩護 (Cover) -->
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+            >
+              <!-- 圖片區域 -->
+              <div
+                class="three-steps-image-container relative bg-blue-50 p-4 flex items-center justify-center h-48"
+              >
+                <img
+                  src="/action-cover.png"
+                  alt="掩護動作示意圖 - 躲在桌子下保護頭頸部"
+                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute top-3 left-3 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
+                >
+                  2
+                </div>
+                <div
+                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
+                >
+                  <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- 內容區域 -->
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">掩護 (Cover)</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                  找尋堅固的桌子或掩護物躲避，用雙手保護頭頸部，避免被掉落物砸傷
+                </p>
+                <div
+                  class="flex items-center text-sm text-blue-600 bg-blue-50 px-3 py-2 rounded-lg"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                  </svg>
+                  關鍵：保護頭部最重要
+                </div>
+              </div>
+            </div>
+
+            <!-- 第三步：穩住 (Hold On) -->
+            <div
+              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+            >
+              <!-- 圖片區域 -->
+              <div
+                class="three-steps-image-container relative bg-green-50 p-4 flex items-center justify-center h-48"
+              >
+                <img
+                  src="/action-hold-on.png"
+                  alt="穩住動作示意圖 - 緊握掩護物直到搖晃停止"
+                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+                <div
+                  class="absolute top-3 left-3 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
+                >
+                  3
+                </div>
+                <div
+                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
+                >
+                  <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- 內容區域 -->
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">穩住 (Hold On)</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                  緊緊握住掩護物，隨著掩護物一起移動，直到地震搖晃完全停止為止
+                </p>
+                <div
+                  class="flex items-center text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  關鍵：保持冷靜，堅持到底
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 記憶口訣區域 -->
+          <div
+            class="bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-2xl p-8 text-center shadow-xl"
+          >
+            <h3 class="text-2xl font-bold mb-4">記憶口訣</h3>
+            <div class="text-4xl font-bold mb-4">趴下 → 掩護 → 穩住</div>
+            <div class="text-xl opacity-90 mb-2">Drop → Cover → Hold On</div>
+            <p class="text-lg opacity-80">黃金保命三動作，關鍵時刻救自己</p>
           </div>
         </section>
 
-        <section id="situations-section" class="section hidden">
-          <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">情境式避難指導</h2>
-            <p class="text-gray-600">在不同場所的正確避難方法</p>
+        <!-- 場所避難指導區域 -->
+        <section id="situations-section" class="section py-16">
+          <!-- 標題區域 -->
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">情境式避難指導</h2>
+            <p class="text-xl text-gray-600 mb-8">針對不同場所與情境的專業避難指導</p>
           </div>
-          <div id="situations-content">
-            <!-- 內容將由 TypeScript 載入 -->
+
+          <!-- 情境導航選單 -->
+          <div class="flex justify-center mb-16">
+            <div class="situation-nav-container">
+              <button class="situation-nav-btn active" data-category="outdoor">戶外</button>
+              <button class="situation-nav-btn" data-category="indoor">室內</button>
+              <button class="situation-nav-btn" data-category="home">居家</button>
+              <button class="situation-nav-btn" data-category="public">公共場所</button>
+              <button class="situation-nav-btn" data-category="transport">交通</button>
+            </div>
+          </div>
+
+          <!-- 情境內容容器 -->
+          <div class="situation-content-wrapper">
+            <!-- 戶外情境 -->
+            <div id="outdoor-situations" class="situation-category active">
+              <div class="text-center mb-10">
+                <div class="inline-flex items-center bg-green-50 rounded-full px-6 py-3 mb-6">
+                  <svg class="w-6 h-6 text-green-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                    />
+                  </svg>
+                  <span class="text-green-700 font-semibold text-lg">戶外環境避難指導</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- 一般戶外 -->
+                <div class="situation-detail-card">
+                  <div class="situation-card-header bg-green-500">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                      />
+                    </svg>
+                    <h3>一般戶外</h3>
+                  </div>
+                  <div class="situation-card-content">
+                    <div class="situation-tips">
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>戶外相對較為安全，可拿起隨身物品保護頭頸部</span>
+                      </div>
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>靜待地震結束，不要嘗試跑入戶內</span>
+                      </div>
+                      <div class="tip-item warning">
+                        <div class="tip-icon">⚠</div>
+                        <span>遠離建築旁、樹下、高架橋下等危險區域</span>
+                      </div>
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>利用公事包或筆電包保護頭部</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 行駛車輛 -->
+                <div class="situation-detail-card">
+                  <div class="situation-card-header bg-orange-500">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"
+                      />
+                    </svg>
+                    <h3>行駛車輛</h3>
+                  </div>
+                  <div class="situation-card-content">
+                    <div class="situation-tips">
+                      <div class="tip-item warning">
+                        <div class="tip-icon">!</div>
+                        <span>行進間車輛可能不易發覺輕度地震</span>
+                      </div>
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>馬上安全減速，開啟警示燈，靠路邊停車</span>
+                      </div>
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>避開建築旁、樹下、高架橋下等高風險地帶</span>
+                      </div>
+                      <div class="tip-item safe">
+                        <div class="tip-icon">✓</div>
+                        <span>確認地震停止後再繼續前進</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 大眾運輸 -->
+              <div class="situation-highlight-card">
+                <div class="highlight-header">
+                  <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l-5.5 9h3v6h5v-6h3z" />
+                  </svg>
+                  <h3>大眾運輸工具</h3>
+                </div>
+                <div class="highlight-grid">
+                  <div class="highlight-item">
+                    <h4>火車、捷運</h4>
+                    <p>抓住固定把手與鋼條，放低重心穩住自己</p>
+                  </div>
+                  <div class="highlight-item">
+                    <h4>車站等車</h4>
+                    <p>就地趴下、掩護、穩住，若人多則放低重心蹲低</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 室內情境 -->
+            <div id="indoor-situations" class="situation-category">
+              <div class="text-center mb-10">
+                <div class="inline-flex items-center bg-blue-50 rounded-full px-6 py-3 mb-6">
+                  <svg class="w-6 h-6 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                  </svg>
+                  <span class="text-blue-700 font-semibold text-lg">室內環境避難指導</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 gap-8 mb-12">
+                <!-- 基本室內避難 -->
+                <div class="situation-detail-card wide">
+                  <div class="situation-card-header bg-blue-500">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <h3>室內基本避難原則</h3>
+                  </div>
+                  <div class="situation-card-content">
+                    <div class="principle-grid">
+                      <div class="principle-item priority">
+                        <div class="principle-number">1</div>
+                        <h4>優先保護自己</h4>
+                        <p>千萬不要慌亂逃出戶外，地震搖晃時應優先保護自己</p>
+                      </div>
+                      <div class="principle-item priority">
+                        <div class="principle-number">2</div>
+                        <h4>就近尋找掩蔽物</h4>
+                        <p>直接躲進桌下等掩蔽物，或朝牆角靠攏趴下保護頭頸部</p>
+                      </div>
+                      <div class="principle-item priority">
+                        <div class="principle-number">3</div>
+                        <h4>注意掉落物</h4>
+                        <p>小心家具、電器、燈具、書櫃等可能掉落的物品</p>
+                      </div>
+                    </div>
+
+                    <div class="important-warning">
+                      <div class="warning-icon">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                        </svg>
+                      </div>
+                      <div class="warning-content">
+                        <h4>重要提醒</h4>
+                        <p>
+                          別往上看，以免被掉落的電燈、電扇或天花板等物品砸傷。日光燈可能會破掉，往上看容易被破片刺傷。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 桌下避難技巧 -->
+              <div class="technique-showcase">
+                <div class="technique-header">
+                  <h3>桌下避難技巧</h3>
+                  <p>正確的桌下避難方法能提供最佳保護</p>
+                </div>
+                <div class="technique-steps">
+                  <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h4>握住桌腳</h4>
+                    <p>躲在桌子下時握住桌腳，當桌子移動時人也跟著移動</p>
+                  </div>
+                  <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h4>形成防護屏障</h4>
+                    <p>桌下的人隨著桌子移動，形成防護屏障避免受傷</p>
+                  </div>
+                  <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h4>保持姿勢</h4>
+                    <p>除非上方有掉落物，否則趴下後不要再移動</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 居家情境 -->
+            <div id="home-situations" class="situation-category">
+              <div class="text-center mb-10">
+                <div class="inline-flex items-center bg-purple-50 rounded-full px-6 py-3 mb-6">
+                  <svg class="w-6 h-6 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                  </svg>
+                  <span class="text-purple-700 font-semibold text-lg">居家各房間避難指導</span>
+                </div>
+              </div>
+
+              <div class="home-rooms-grid">
+                <!-- 客廳餐廳書房 -->
+                <div class="room-card">
+                  <div class="room-header">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+                      />
+                    </svg>
+                    <h4>客廳、餐廳、書房</h4>
+                  </div>
+                  <div class="room-content">
+                    <div class="room-tips">
+                      <div class="room-tip safe">躲在堅固桌下（避免玻璃桌面）</div>
+                      <div class="room-tip warning">遠離玻璃窗、吊燈、易倒櫥櫃</div>
+                      <div class="room-tip safe">抓穩桌腳保護自己</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 臥室 -->
+                <div class="room-card">
+                  <div class="room-header">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M21 10.78V8c0-1.65-1.35-3-3-3s-3 1.35-3 3v2.78c-.61.55-1 1.34-1 2.22 0 .89.39 1.67 1 2.22V19h6v-3.78c.61-.55 1-1.33 1-2.22 0-.88-.39-1.67-1-2.22z"
+                      />
+                    </svg>
+                    <h4>臥室床上</h4>
+                  </div>
+                  <div class="room-content">
+                    <div class="room-tips">
+                      <div class="room-tip safe">轉身趴下，用枕頭保護頭頸</div>
+                      <div class="room-tip safe">繼續待在床上直到地震結束</div>
+                      <div class="room-tip warning">慌亂起身避難可能造成危險</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 廁所 -->
+                <div class="room-card">
+                  <div class="room-header">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4-13H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"
+                      />
+                    </svg>
+                    <h4>廁所</h4>
+                  </div>
+                  <div class="room-content">
+                    <div class="room-tips">
+                      <div class="room-tip warning">不要急著離開廁所</div>
+                      <div class="room-tip safe">身體壓低，用雙手保護頭頸部</div>
+                      <div class="room-tip warning">注意鏡子及置物架掉落物</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 浴室 -->
+                <div class="room-card">
+                  <div class="room-header">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4-13H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"
+                      />
+                    </svg>
+                    <h4>浴室</h4>
+                  </div>
+                  <div class="room-content">
+                    <div class="room-tips">
+                      <div class="room-tip warning">不要急著跳出浴缸</div>
+                      <div class="room-tip safe">放低頭部低於浴缸邊緣</div>
+                      <div class="room-tip safe">用雙手或臉盆保護頭頸部</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 廚房 -->
+                <div class="room-card">
+                  <div class="room-header">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18 2.01L6 2c-1.1 0-2 .89-2 2v16c0 1.11.9 2 2 2h12c1.1 0 2-.89 2-2V4c0-1.11-.9-1.99-2-1.99zM18 20H6v-9.02h12V20z"
+                      />
+                    </svg>
+                    <h4>廚房</h4>
+                  </div>
+                  <div class="room-content">
+                    <div class="kitchen-special">
+                      <div class="kitchen-priority">
+                        <h5>瓦斯爐火處理</h5>
+                        <div class="fire-handling">
+                          <div class="handling-option safe">
+                            <span class="option-label">順手可關</span>
+                            <span>立即關閉爐火，就地避難</span>
+                          </div>
+                          <div class="handling-option warning">
+                            <span class="option-label">不易關閉</span>
+                            <span>先就地避難，不要貿然衝去關火</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="kitchen-hazards">
+                        <h5>注意事項</h5>
+                        <ul>
+                          <li>小心熱湯鍋傾倒燙傷</li>
+                          <li>注意碗盤杯具掉落碎裂</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 公共場所情境 -->
+            <div id="public-situations" class="situation-category">
+              <div class="text-center mb-10">
+                <div class="inline-flex items-center bg-amber-50 rounded-full px-6 py-3 mb-6">
+                  <svg class="w-6 h-6 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    />
+                  </svg>
+                  <span class="text-amber-700 font-semibold text-lg">公共場所避難指導</span>
+                </div>
+                <p class="text-amber-600 font-medium">公共場所千萬不能慌張，保持冷靜最重要</p>
+              </div>
+
+              <div class="public-places-grid">
+                <!-- 電影院 -->
+                <div class="public-place-card">
+                  <div class="place-icon cinema">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+                      />
+                    </svg>
+                  </div>
+                  <h4>電影院</h4>
+                  <div class="place-instructions">
+                    <div class="instruction-item">直接俯身躲進前後排座椅間走道</div>
+                    <div class="instruction-item">空間不夠則彎腰抱頭，俯身到比椅背低</div>
+                    <div class="instruction-item">走道旁可找堅固牆柱蹲下暫避</div>
+                  </div>
+                </div>
+
+                <!-- 辦公室 -->
+                <div class="public-place-card">
+                  <div class="place-icon office">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M10 16V8a1 1 0 00-1-1H4a1 1 0 00-1 1v8a1 1 0 001 1h5a1 1 0 001-1zM21 16V8a1 1 0 00-1-1h-5a1 1 0 00-1 1v8a1 1 0 001 1h5a1 1 0 001-1z"
+                      />
+                    </svg>
+                  </div>
+                  <h4>辦公室</h4>
+                  <div class="place-instructions">
+                    <div class="instruction-item">躲到辦公桌下，趴下、掩護、穩住</div>
+                    <div class="instruction-item">利用桌子保護頭、頸部和身體</div>
+                    <div class="instruction-item">別往上看，小心日光燈破片</div>
+                  </div>
+                </div>
+
+                <!-- 電梯旁邊 -->
+                <div class="public-place-card">
+                  <div class="place-icon elevator">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                    </svg>
+                  </div>
+                  <h4>電梯旁邊</h4>
+                  <div class="place-instructions">
+                    <div class="instruction-item safe">在電梯外牆旁趴下、掩護、穩住</div>
+                    <div class="instruction-item safe">用隨身物品保護頭頸部</div>
+                    <div class="instruction-item danger">絕對不要進入電梯內</div>
+                  </div>
+                </div>
+
+                <!-- 補習班學校 -->
+                <div class="public-place-card">
+                  <div class="place-icon school">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"
+                      />
+                    </svg>
+                  </div>
+                  <h4>補習班/學校</h4>
+                  <div class="place-instructions">
+                    <div class="instruction-item">躲到課桌下，趴下、掩護、穩住</div>
+                    <div class="instruction-item">保護頭頸部最重要</div>
+                    <div class="instruction-item">按照人員指示進行疏散</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 交通情境 -->
+            <div id="transport-situations" class="situation-category">
+              <div class="text-center mb-10">
+                <div class="inline-flex items-center bg-indigo-50 rounded-full px-6 py-3 mb-6">
+                  <svg class="w-6 h-6 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"
+                    />
+                  </svg>
+                  <span class="text-indigo-700 font-semibold text-lg">交通工具避難指導</span>
+                </div>
+              </div>
+
+              <div class="transport-scenarios">
+                <!-- 私人車輛 -->
+                <div class="transport-card priority">
+                  <div class="transport-header">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"
+                      />
+                    </svg>
+                    <h4>私人車輛</h4>
+                  </div>
+                  <div class="transport-steps">
+                    <div class="step-sequence">
+                      <div class="sequence-item">
+                        <div class="sequence-number">1</div>
+                        <span>馬上安全減速</span>
+                      </div>
+                      <div class="sequence-arrow">→</div>
+                      <div class="sequence-item">
+                        <div class="sequence-number">2</div>
+                        <span>開啟警示燈</span>
+                      </div>
+                      <div class="sequence-arrow">→</div>
+                      <div class="sequence-item">
+                        <div class="sequence-number">3</div>
+                        <span>靠路邊空曠處停車</span>
+                      </div>
+                    </div>
+                    <div class="transport-warnings">
+                      <div class="warning-item">避開建築旁、樹下、高架橋下</div>
+                      <div class="warning-item">確認地震停止後再繼續前進</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 大眾運輸工具 -->
+                <div class="transport-card">
+                  <div class="transport-header">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M4 15.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V5c0-3.5-3.58-4-8-4s-8 .5-8 4v10.5z"
+                      />
+                    </svg>
+                    <h4>火車、捷運</h4>
+                  </div>
+                  <div class="transport-content">
+                    <div class="action-items">
+                      <div class="action-item primary">
+                        <span class="action-icon">🤝</span>
+                        <span>抓住固定把手與鋼條</span>
+                      </div>
+                      <div class="action-item primary">
+                        <span class="action-icon">⬇️</span>
+                        <span>放低重心穩住自己</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section id="mistakes-section" class="section hidden">
-          <div id="mistakes-content">
-            <!-- 內容將由 TypeScript 載入 -->
+        <!-- 錯誤行為警示區域 -->
+        <section id="mistakes-section" class="section py-16">
+          <!-- 標題區域 -->
+          <div class="text-center mb-12">
+            <div class="flex items-center justify-center mb-4">
+              <div class="warning-pulse-icon">
+                <svg class="w-10 h-10 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                </svg>
+              </div>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">錯誤行為警示</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              參考內政部消防署資料，以下是地震避難時常見的危險錯誤行為，請務必避免
+            </p>
+            <div
+              class="inline-flex items-center bg-red-50 border border-red-200 rounded-full px-6 py-3"
+            >
+              <svg
+                class="w-5 h-5 text-red-500 mr-2"
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                />
+              </svg>
+              <span class="text-red-700 font-semibold">記住：保護自己最重要，不要慌張</span>
+            </div>
+          </div>
+
+          <!-- 錯誤行為分類導航 -->
+          <div class="flex justify-center mb-12">
+            <div class="mistake-nav-container">
+              <button class="mistake-nav-btn active" data-category="general">一般錯誤</button>
+              <button class="mistake-nav-btn" data-category="indoor">室內錯誤</button>
+              <button class="mistake-nav-btn" data-category="outdoor">戶外錯誤</button>
+              <button class="mistake-nav-btn" data-category="public">公共場所</button>
+            </div>
+          </div>
+
+          <!-- 錯誤行為內容容器 -->
+          <div class="mistake-content-wrapper">
+            <!-- 一般錯誤 -->
+            <div id="general-mistakes" class="mistake-category active">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 慌亂逃出戶外 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-red-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">慌亂逃出戶外</h3>
+                      <p class="mistake-description">
+                        地震搖晃時千萬不要慌亂逃出戶外，容易被掉落物砸傷或在樓梯間推擠跌倒
+                      </p>
+                      <div class="mistake-consequences">
+                        <span class="consequence-item">被掉落物砸傷</span>
+                        <span class="consequence-item">樓梯間推擠跌倒</span>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator extreme">極危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 使用電梯逃生 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-red-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">進入電梯逃生</h3>
+                      <p class="mistake-description">
+                        地震時絕對不要進入電梯內，電梯可能故障或停電造成受困危險
+                      </p>
+                      <div class="mistake-consequences">
+                        <span class="consequence-item">電梯故障受困</span>
+                        <span class="consequence-item">停電無法脫困</span>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator extreme">極危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 往上看 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-orange-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">往上看掉落物</h3>
+                      <p class="mistake-description">
+                        別往上看，日光燈可能破掉，往上看容易被破片刺傷，要專注保護頭頸部
+                      </p>
+                      <div class="mistake-consequences">
+                        <span class="consequence-item">被破片刺傷</span>
+                        <span class="consequence-item">被掉落物砸中</span>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator high">高危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 室內錯誤 -->
+            <div id="indoor-mistakes" class="mistake-category">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- 急著離開廁所 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-yellow-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">急著離開廁所</h3>
+                      <p class="mistake-description">
+                        廁所空間較小，慌亂中急忙衝出容易發生意外，應身體壓低保護頭頸部
+                      </p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>身體壓低，雙手保護頭頸部</li>
+                          <li>用臉盆等物品保護自己</li>
+                          <li>注意鏡子及置物架掉落物</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator medium">中危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 急著跳出浴缸 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-blue-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4-13H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">急著跳出浴缸</h3>
+                      <p class="mistake-description">
+                        浴室有水氣容易濕滑，慌亂跳出浴缸容易跌倒受傷
+                      </p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>放低頭部，低於浴缸邊緣</li>
+                          <li>用雙手或臉盆保護頭頸部</li>
+                          <li>注意懸掛鏡子及置物架</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator high">高危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 慌亂起身避難 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-purple-500">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M21 12v-2c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v2H1v6c0 1.1.9 2 2 2v-2h18v2c1.1 0 2-.9 2-2v-6h-2zM5 10h14v2H5v-2zm2-6c0-1.1.9-2 2-2s2 .9 2 2v2H9V4z"
+                          />
+                          <circle cx="8.5" cy="7" r="1.5" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">床上慌亂起身</h3>
+                      <p class="mistake-description">在床上時慌亂起身避難可能引發不必要的危險</p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>轉身趴下用枕頭保護頭頸</li>
+                          <li>繼續待在床上直到地震結束</li>
+                          <li>保持警覺但不要急著起身</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator medium">中危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 貿然衝去關火 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-red-600">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">貿然衝去關火</h3>
+                      <p class="mistake-description">
+                        如果不是順手即可關閉爐火，不要貿然衝去關火以免受傷
+                      </p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>順手可關：立即關火，就地避難</li>
+                          <li>不易關閉：先就地避難保護自己</li>
+                          <li>注意熱湯鍋和碗盤掉落</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator high">高危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 戶外錯誤 -->
+            <div id="outdoor-mistakes" class="mistake-category">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 嘗試跑入戶內 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-green-600">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">嘗試跑入戶內</h3>
+                      <p class="mistake-description">
+                        地震時戶外相對安全，千萬不要嘗試跑入戶內，可能遭遇掉落物
+                      </p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>拿隨身物品保護頭頸部</li>
+                          <li>靜待地震結束</li>
+                          <li>遠離建築旁、樹下、高架橋下</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator medium">中危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 停留在危險區域 -->
+                <div class="mistake-card">
+                  <div class="mistake-card-inner">
+                    <div class="mistake-icon-container">
+                      <div class="mistake-icon bg-orange-600">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mistake-content">
+                      <h3 class="mistake-title">停留危險區域</h3>
+                      <p class="mistake-description">
+                        在建築旁、樹下、高架橋下等危險區域停留，容易被掉落物砸傷
+                      </p>
+                      <div class="correct-action">
+                        <h4>正確做法：</h4>
+                        <ul>
+                          <li>立即離開高風險區域</li>
+                          <li>移至空曠處避難</li>
+                          <li>注意上方掉落物、招牌、磁磚</li>
+                        </ul>
+                      </div>
+                      <div class="mistake-danger-level">
+                        <span class="danger-indicator high">高危險</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 公共場所錯誤 -->
+            <div id="public-mistakes" class="mistake-category">
+              <div class="public-mistakes-warning">
+                <div class="warning-header">
+                  <div class="warning-icon-large">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                    </svg>
+                  </div>
+                  <h3>公共場所千萬不能慌張</h3>
+                  <p>在人多的公共場所發生地震時，保持冷靜最為重要，避免群眾恐慌</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="public-mistake-item">
+                    <div class="mistake-scenario">
+                      <div class="scenario-icon cinema">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2z" />
+                        </svg>
+                      </div>
+                      <h4>電影院錯誤行為</h4>
+                    </div>
+                    <div class="mistake-list">
+                      <div class="mistake-item wrong">
+                        <span class="mistake-label">❌ 錯誤</span>
+                        <span>慌張站起四處奔跑</span>
+                      </div>
+                      <div class="mistake-item correct">
+                        <span class="mistake-label">✅ 正確</span>
+                        <span>俯身躲進座椅間走道，抱頭俯身比椅背低</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="public-mistake-item">
+                    <div class="mistake-scenario">
+                      <div class="scenario-icon office">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M20 6h-2V4c0-1.11-.89-2-2-2H8c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11h20V8c0-1.11-.89-2-2-2zM8 4h8v2H8V4zM4 8h16v3H4V8zm0 5h5v6H4v-6zm7 0h9v6h-9v-6z"
+                          />
+                          <rect x="12" y="9" width="1" height="1" />
+                          <rect x="15" y="9" width="1" height="1" />
+                        </svg>
+                      </div>
+                      <h4>辦公室錯誤行為</h4>
+                    </div>
+                    <div class="mistake-list">
+                      <div class="mistake-item wrong">
+                        <span class="mistake-label">❌ 錯誤</span>
+                        <span>離開座位衝向出口</span>
+                      </div>
+                      <div class="mistake-item correct">
+                        <span class="mistake-label">✅ 正確</span>
+                        <span>躲到辦公桌下，趴下掩護穩住</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 重要提醒區域 -->
+          <div class="important-reminder-section">
+            <div class="reminder-header">
+              <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                />
+              </svg>
+              <h3>記住黃金守則</h3>
+            </div>
+            <div class="reminder-content">
+              <div class="reminder-grid">
+                <div class="reminder-item priority">
+                  <div class="reminder-number">1</div>
+                  <h4>保持冷靜</h4>
+                  <p>慌亂是最大的敵人，冷靜思考才能做出正確判斷</p>
+                </div>
+                <div class="reminder-item priority">
+                  <div class="reminder-number">2</div>
+                  <h4>就地保護</h4>
+                  <p>優先保護自己，不要急著移動或逃跑</p>
+                </div>
+                <div class="reminder-item priority">
+                  <div class="reminder-number">3</div>
+                  <h4>趴下掩護穩住</h4>
+                  <p>執行正確的避難三步驟，保護頭頸部最重要</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
+
+      <!-- 回到頂部按鈕 -->
+      <button
+        id="go-to-top"
+        class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 opacity-0 invisible hover:bg-blue-700"
+        aria-label="回到頂部"
+      >
+        <svg class="w-6 h-6 mx-auto" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+        </svg>
+      </button>
 
       <!-- 頁尾 -->
       <footer class="bg-gray-800 text-white py-8 mt-16">
