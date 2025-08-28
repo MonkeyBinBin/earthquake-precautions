@@ -96,7 +96,7 @@ html {
 }
 
 /* 行動裝置調整 - 增加安全距離避免被系統 UI 遮住 */
-@media (max-width: 639px) {
+@media (width <= 639px) {
   #go-to-top {
     right: 1rem; /* 16px */
     bottom: 4rem; /* 64px - 避免被底部導航列遮住 */
@@ -110,7 +110,7 @@ html {
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
   
-  @media (max-width: 639px) {
+  @media (width <= 639px) {
     #go-to-top {
       right: calc(1rem + env(safe-area-inset-right));
       bottom: calc(4rem + env(safe-area-inset-bottom));
@@ -1765,22 +1765,6 @@ footer::before {
   transform: scale(1.05);
 }
 
-/* 步驟編號 */
-.step-number {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: white;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
-}
 
 /* 內容區域 */
 .step-content-area {
