@@ -8,7 +8,7 @@
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
     <link rel="apple-touch-icon" href="/earthquake-icon.svg" />
     <link rel="shortcut icon" href="/earthquake-icon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta
       name="description"
       content="地震預防與應變指南應用程式 - 提供全面的地震防災教育與應變指導"
@@ -505,45 +505,27 @@
           </div>
 
           <!-- 三步驟卡片 -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
             <!-- 第一步：趴下 (Drop) -->
-            <div
-              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
-            >
+            <div class="earthquake-step-card step-1">
               <!-- 圖片區域 -->
-              <div
-                class="three-steps-image-container relative bg-red-50 p-4 flex items-center justify-center h-48"
-              >
+              <div class="step-image-area">
                 <img
                   src="/action-drop.png"
                   alt="趴下動作示意圖 - 立即蹲下保護身體"
-                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                 />
-                <div
-                  class="absolute top-3 left-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
-                >
-                  1
-                </div>
-                <div
-                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
-                >
-                  <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
-                  </svg>
-                </div>
+                <div class="step-number">1</div>
               </div>
 
               <!-- 內容區域 -->
-              <div class="p-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">趴下 (Drop)</h3>
-                <p class="text-gray-600 mb-4 leading-relaxed">
+              <div class="step-content-area">
+                <h3 class="step-title">趴下 (Drop)</h3>
+                <p class="step-description">
                   感受到搖晃的瞬間，立即蹲下並雙手雙膝著地，保護身體重心穩定，避免跌倒受傷
                 </p>
-                <div class="flex items-center text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+                <div class="step-key-point">
                   <svg
-                    class="w-4 h-4 mr-2"
-                    width="16"
-                    height="16"
+                    class="w-4 h-4 mr-2 flex-shrink-0"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -557,45 +539,25 @@
             </div>
 
             <!-- 第二步：掩護 (Cover) -->
-            <div
-              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
-            >
+            <div class="earthquake-step-card step-2">
               <!-- 圖片區域 -->
-              <div
-                class="three-steps-image-container relative bg-blue-50 p-4 flex items-center justify-center h-48"
-              >
+              <div class="step-image-area">
                 <img
                   src="/action-cover.png"
                   alt="掩護動作示意圖 - 躲在桌子下保護頭頸部"
-                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                 />
-                <div
-                  class="absolute top-3 left-3 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
-                >
-                  2
-                </div>
-                <div
-                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
-                >
-                  <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                  </svg>
-                </div>
+                <div class="step-number">2</div>
               </div>
 
               <!-- 內容區域 -->
-              <div class="p-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">掩護 (Cover)</h3>
-                <p class="text-gray-600 mb-4 leading-relaxed">
+              <div class="step-content-area">
+                <h3 class="step-title">掩護 (Cover)</h3>
+                <p class="step-description">
                   找尋堅固的桌子或掩護物躲避，用雙手保護頭頸部，避免被掉落物砸傷
                 </p>
-                <div
-                  class="flex items-center text-sm text-blue-600 bg-blue-50 px-3 py-2 rounded-lg"
-                >
+                <div class="step-key-point">
                   <svg
-                    class="w-4 h-4 mr-2"
-                    width="16"
-                    height="16"
+                    class="w-4 h-4 mr-2 flex-shrink-0"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -607,45 +569,25 @@
             </div>
 
             <!-- 第三步：穩住 (Hold On) -->
-            <div
-              class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 group"
-            >
+            <div class="earthquake-step-card step-3">
               <!-- 圖片區域 -->
-              <div
-                class="three-steps-image-container relative bg-green-50 p-4 flex items-center justify-center h-48"
-              >
+              <div class="step-image-area">
                 <img
                   src="/action-hold-on.png"
                   alt="穩住動作示意圖 - 緊握掩護物直到搖晃停止"
-                  class="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                 />
-                <div
-                  class="absolute top-3 left-3 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shadow-lg"
-                >
-                  3
-                </div>
-                <div
-                  class="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-md"
-                >
-                  <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+                <div class="step-number">3</div>
               </div>
 
               <!-- 內容區域 -->
-              <div class="p-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">穩住 (Hold On)</h3>
-                <p class="text-gray-600 mb-4 leading-relaxed">
+              <div class="step-content-area">
+                <h3 class="step-title">穩住 (Hold On)</h3>
+                <p class="step-description">
                   緊緊握住掩護物，隨著掩護物一起移動，直到地震搖晃完全停止為止
                 </p>
-                <div
-                  class="flex items-center text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg"
-                >
+                <div class="step-key-point">
                   <svg
-                    class="w-4 h-4 mr-2"
-                    width="16"
-                    height="16"
+                    class="w-4 h-4 mr-2 flex-shrink-0"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -662,7 +604,7 @@
             class="bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-2xl p-8 text-center shadow-xl"
           >
             <h3 class="text-2xl font-bold mb-4">記憶口訣</h3>
-            <div class="text-4xl font-bold mb-4">趴下 → 掩護 → 穩住</div>
+            <div class="memory-slogan text-4xl font-bold mb-4">趴下 → 掩護 → 穩住</div>
             <div class="text-xl opacity-90 mb-2">Drop → Cover → Hold On</div>
             <p class="text-lg opacity-80">黃金保命三動作，關鍵時刻救自己</p>
           </div>
@@ -1591,7 +1533,7 @@
       <!-- 回到頂部按鈕 -->
       <button
         id="go-to-top"
-        class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 opacity-0 invisible hover:bg-blue-700"
+        class="fixed bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 opacity-0 invisible hover:bg-blue-700"
         aria-label="回到頂部"
       >
         <svg class="w-6 h-6 mx-auto" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

@@ -1,23 +1,6 @@
 import './style.css'
 
-interface EmergencyContact {
-  name: string
-  phone: string
-  relationship: string
-}
-
-interface PreparationItem {
-  id: string
-  name: string
-  category: string
-  checked: boolean
-  description: string
-}
-
 class EarthquakePreventionApp {
-  private preparationItems: PreparationItem[] = []
-  private emergencyContacts: EmergencyContact[] = []
-
   constructor() {
     this.initApp()
   }
